@@ -3,6 +3,7 @@ from .models import Blog
 from django.contrib import messages
 from .models import Subscriber
 from .forms import BlogForm
+from django.contrib.auth import authenticate, login
 
 
 # Create your views here.
@@ -67,3 +68,16 @@ def add_blog(request):
         form = BlogForm()
     
     return render(request, 'add_blog.html', {'form': form})
+def login_view(request):
+    if request.method == 'POST':
+        email = request.POST['email']
+        password = request.POST['password']
+        user = authenticate(request, email=email, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('home')  # Replace 'home' with your desired URL name
+        else:
+            error_message = "Invalid credentials"
+    else:
+        error_message = None
+    return render(request, 'myapp/login.html', {'error_message': error_message})

@@ -75,6 +75,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'myproject.wsgi.application'
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
 # Database
@@ -87,20 +88,20 @@ WSGI_APPLICATION = 'myproject.wsgi.application'
 #     }
 # }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'blog_site',
-#         'USER': 'postgres',
-#         'PASSWORD': 'Loise15',
-#         'HOST': 'localhost',
-#         'PORT': '5432'
-#     }
-# }
-
 DATABASES = {
-    "default": dj_database_url.parse(config("DATABASE_URL"))
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'blog_site',
+        'USER': 'postgres',
+        'PASSWORD': 'Loise15',
+        'HOST': 'localhost',
+        'PORT': '5432'
+    }
 }
+
+# DATABASES = {
+#     "default": dj_database_url.parse(config("DATABASE_URL"))
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/5.0/ref/settings/#auth-password-validators
@@ -150,3 +151,17 @@ cloudinary.config(
     api_key = '758455576399712',
     api_secret = 'aYObv5fKKaUXxBYxCKjDMzUukps'
 )
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'prudencemathu87@gmail.com'
+EMAIL_HOST_PASSWORD = 'cayo qmbk nxlu ejbc'  # Consider using environment variables or Django-environ for security
+
+AUTH_USER_MODEL = 'myapp.CustomUser'
+
+AUTHENTICATION_BACKENDS = [
+    'myapp.backends.CustomAuthBackend',
+    'django.contrib.auth.backends.ModelBackend',  # Default authentication backend
+]

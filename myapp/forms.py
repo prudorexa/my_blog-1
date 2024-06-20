@@ -1,5 +1,7 @@
 from django import forms
+from django_registration.forms import RegistrationForm
 from .models import Blog, Author
+
 
 class BlogForm(forms.ModelForm):
     # Define the author field as a dropdown menu of authors
@@ -17,3 +19,4 @@ class BlogForm(forms.ModelForm):
         cleaned_data = super().clean()
         # Additional form validation can be performed here
         return cleaned_data
+    
